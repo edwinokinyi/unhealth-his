@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: unihealth-his
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    disk:
+      name: unihealth-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_FILE
+        value: /var/data/unihealth.db
+      - key: JWT_SECRET
+        generateValue: true
+      - key: OWNER_INITIAL_PASSWORD
+        sync: false
